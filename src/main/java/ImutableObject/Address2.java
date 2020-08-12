@@ -3,15 +3,15 @@ package ImutableObject;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Address {
+public class Address2 {
 
     private String city;
     private String street;
     private String zipcode;
 
-    public Address(){}
+    public Address2(){}
 
-    public Address(String city, String street, String zipcode) {
+    public Address2(String city, String street, String zipcode) {
         this.city = city;
         this.street = street;
         this.zipcode = zipcode;

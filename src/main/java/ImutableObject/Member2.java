@@ -13,10 +13,10 @@ public class Member2 {
     private String name;
 
     @Embedded
-    private Address address;
+    private Address2 address;
     
     @Embedded
-    private Period period;
+    private Period2 period;
 
     public Long getId() {
         return id;
@@ -34,19 +34,19 @@ public class Member2 {
         this.name = name;
     }
 
-    public Address getAddress() {
+    public Address2 getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Address2 address) {
         this.address = address;
     }
 
-    public Period getPeriod() {
+    public Period2 getPeriod() {
         return period;
     }
 
-    public void setPeriod(Period period) {
+    public void setPeriod(Period2 period) {
         this.period = period;
     }
 }
