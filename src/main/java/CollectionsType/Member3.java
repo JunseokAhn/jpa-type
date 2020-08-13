@@ -3,10 +3,7 @@ package CollectionsType;
 import EmbeddedType.Address;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Member3 {
@@ -26,6 +23,7 @@ public class Member3 {
     //의문. 이럴게아니라 OneToMany로 엮으면 되는거아닌가?? 좀더 class를 줄여주는측면에서 이득인거같기도 함.
     //Member가 수정이 되었을때(아마 MEMBER_ID??) 값타입컬렉션도 같이 수정이되고,
     //persist(member)한번만 하면 되기떄문에 훨씬 편리한듯 하다.
+    //근데, id가없으므로 실무적으로 더 안좋을수있어서 그냥 OneToMany로엮고, cascade랑 orphan옵션 켜주는게 낫다고한다.
 
     //+ 이경우, 컬렉션타입은 자동적으로 지연로딩이 된다.
     @ElementCollection
@@ -83,5 +81,23 @@ public class Member3 {
 
     public void setAddressHistory(List<Address3> addressHistory) {
         this.addressHistory = addressHistory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member3 member3 = (Member3) o;
+        return Objects.equals(id, member3.id) &&
+                Objects.equals(name, member3.name) &&
+                Objects.equals(address, member3.address) &&
+                Objects.equals(period, member3.period) &&
+                Objects.equals(favoriteFoods, member3.favoriteFoods) &&
+                Objects.equals(addressHistory, member3.addressHistory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, period, favoriteFoods, addressHistory);
     }
 }

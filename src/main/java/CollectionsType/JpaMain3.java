@@ -31,7 +31,7 @@ public class JpaMain3 {
         EM.persist(member);
 
         EM.flush();
-        EM.clear();
+//        EM.clear();
 
         System.out.println("=============콜렉션타입은 자동으로 지연로딩이된다.================");
 
@@ -43,6 +43,19 @@ public class JpaMain3 {
         List<Address3> addressHistory = findMember.getAddressHistory();
         for(Address3 i : addressHistory)
             System.out.println(i.getCity());
+
+        //값타입을 수정할때는 사이드이펙트 예방을위해 일부만수정하는것이아니라,
+        // 전체를 새로 생성해서 만들어줘야한다  member.getAddress().setCity(); >> X
+        member.setAddress(new Address3("city3", "street", "zipcode"));
+
+        member.getFavoriteFoods().remove("피자");
+        member.getFavoriteFoods().add("닭발");
+
+        //remove는 equals를 사용한다. 그러므로 equals랑 hashcode를 오버라이딩 해줘야함.
+        //값타입 컬렉션은 변경하면 추적이 어렵기때문에 그냥 테이블을 delete해버리고 전부 새로 insert함.
+        member.getAddressHistory().remove(new Address3("city3", "street", "zipcode"));
+
+        EM.persist(member);
 
         ET.commit();
         EM.close();
